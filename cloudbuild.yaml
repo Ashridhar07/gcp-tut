@@ -1,5 +1,5 @@
-steps:
 # Access the id_github file from Secret Manager, and setup SSH
+steps:
 - name: 'gcr.io/cloud-builders/git'
   secretEnv: ['SSH_KEY']
   entrypoint: 'bash'
@@ -13,7 +13,7 @@ steps:
   - name: 'ssh'
     path: /root/.ssh
 
-#First Clone from Git
+# Clone the repository
 - name: 'gcr.io/cloud-builders/git'
   args:
   - clone
@@ -22,12 +22,13 @@ steps:
   volumes:
   - name: 'ssh'
     path: /root/.ssh
+
 availableSecrets:
   secretManager:
-  - versionName: projects/_PROJECT/secrets/git-auth-secret/versions/latest
+  - versionName: projects/cogent-dragon-398510/secrets/git-auth-secret/versions/latest
     env: 'SSH_KEY'
 
-#Build the image 
+#building docker image
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build','-t','gcr.io/${_PROJECT}/${_CONTAINERNAME}:${_VERSION}','.']
 

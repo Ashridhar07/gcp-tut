@@ -28,9 +28,6 @@ availableSecrets:
   - versionName: projects/_PROJECT/secrets/git-auth-secret/versions/latest
     env: 'SSH_KEY'
 
-#- name: 'gcr.io/cloud-builders/git'
-#  args: ['clone','https://github.com/Ashridhar07/gcp-tut.git']
-
 #Build the image 
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build','-t','gcr.io/${_PROJECT}/${_CONTAINERNAME}:${_VERSION}','.']

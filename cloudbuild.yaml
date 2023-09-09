@@ -30,7 +30,7 @@ substitutions:
     
     #Repository Specific configuration. DevOps can change this settings
     _DEPLOYMENTNAME: hello-app
-    _CONTAINERNAME: hello-repo    
+    _CONTAINERNAME: hello-app    
     _REPO_NAME: gcp-tut
     
     # Developers ONLY change

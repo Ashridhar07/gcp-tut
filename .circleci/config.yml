@@ -1,0 +1,46 @@
+version: 2.1
+orbs:
+  docker: circleci/docker@2.2.0
+  gke: circleci/gcp-gke@1.4.0
+  gcr: circleci/gcp-gcr@0.15.3
+jobs:
+  build:
+    docker: 
+      - image: cimg/golang:1.14
+      steps:
+        - checkout
+        - gcr/gcr-auth
+        - gcr/build-image:
+            image: hello-app
+            tag: "v2.0"
+        - gcr/push-image:
+            image: hello-app
+            tag: "v2.0"
+  deploy:
+    steps:
+      - gcp-gke/install
+      - gcp-gke/init
+      - gcp-gke/rollout-image:
+          deployment: hello-app
+          container: hello-app
+          image: gcr.io/hello-app/hello-app:v2
+updating
+workflows:
+  build_update_deploy:
+    jobs:
+      - build
+      - Build-Push-Image-Docker:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - Build-Push-Image-Docker
+        
+
+         
+
+    
+
+
+
+

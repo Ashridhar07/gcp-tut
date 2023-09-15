@@ -7,7 +7,7 @@ jobs:
   build:
     docker: 
       - image: cimg/golang:1.14
-      steps:
+    steps:
         - checkout
         - gcr/gcr-auth
         - gcr/build-image:
